@@ -6,6 +6,7 @@ To be executed and handled with socat
 import os
 import rsa
 import sys
+from base64 import b64encode, b64decode
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 
@@ -25,10 +26,11 @@ class Alice():
         self.msg_loop()
 
     def recv(self)->str:
-        return sys.stdin.buffer.read()
+        return b64decode(input())
     
-    def send(self, msg:str):
-        sys.stdout.buffer.write(msg)
+    def send(self, msg:bytes):
+        sys.stdout.buffer.write(b64encode(msg))
+        sys.stdout.buffer.flush()
 
     def load_keys(self):
         if not os.path.exists(self.priv_key_path):
