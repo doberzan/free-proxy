@@ -1,0 +1,1 @@
+socat TCP-LISTEN:8888,fork,reuseaddr EXEC:"/app/alice.py" && socat TCP-LISTEN:8877,fork,reuseaddr EXEC:"/app/bob.py"
